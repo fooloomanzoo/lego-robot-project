@@ -1,5 +1,3 @@
-import lejos.nxt.Button;
-import lejos.nxt.LCD;
 import lejos.nxt.Motor;
 
 public class Move {
@@ -18,78 +16,9 @@ public class Move {
 	final static double MOTOR_A_CAL_SPEED = 1;
 	final static double MOTOR_B_CAL_SPEED = 1.005;
 
-	// Motorkalibrierung erfolgt nur nach Berechnung der Fahrtzeit 
-	// -> TODO: reale Position miteinbeziehen
-	
-	// ROTATION mittels eines Motors mit Drehachse am fixen Rad
-	// deg > 0 => Rechtsdrehung
-	public static void rotateDegreeBlocking(int degree, int speed) {
-		double distCirc = Math.abs(degree) * AXLE_RADIUS * 2 * Math.PI / 360;
-		int deg = (int) (distCirc * 360) / WHEEL_CIRC; // Schneidet ab, statt zu
-													   // runden
-		int driveTime = (int) (distCirc * 360 * 1000) / (speed * WHEEL_CIRC); // leicht
-																			  // ungenau
-
-		if (degree > 0) {
-			Motor.A.stop();
-			Motor.B.setSpeed((int) (speed * MOTOR_B_CAL_SPEED));
-			Motor.B.rotate((int) (deg * MOTOR_B_CAL_DEG), true);
-		} else {
-			Motor.B.stop();
-			Motor.A.setSpeed((int) (speed * MOTOR_A_CAL_SPEED));
-			Motor.A.rotate((int) (deg * MOTOR_A_CAL_DEG), true);
-		}
-
-		try {
-			Thread.sleep(driveTime); // eventuell laenger laufen lassen, wegen
-								     // Zeitabbruch
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			Motor.A.stop();
-			Motor.B.stop();
-			System.out.println("A: " + Motor.A.getTachoCount() + " Grad\nB: " + Motor.B.getTachoCount() + " Grad");
-		}
-	}
-	
-	// ROTATION mittels eines Motors mit Drehachse am fixen Rad, aber rueckwarts
-	// deg > 0 => Rechtsdrehung
-	public static void rotateDegreeBackwardsBlocking(int degree, int speed) {
-		double distCirc = Math.abs(degree) * AXLE_RADIUS * 2 * Math.PI / 360;
-		int deg = (int) (distCirc * 360) / WHEEL_CIRC; // Schneidet ab, statt zu
-													   // runden
-		int driveTime = (int) (distCirc * 360 * 1000) / (speed * WHEEL_CIRC); // leicht
-																			  // ungenau
-
-		if (degree > 0) {
-			Motor.B.stop();
-			Motor.A.setSpeed((int) (speed * MOTOR_A_CAL_SPEED));
-			Motor.A.rotate((int) ((-deg) * MOTOR_A_CAL_DEG), true);
-			System.out.println((int) ((-deg) * MOTOR_A_CAL_DEG));
-		} else {
-			Motor.A.stop();
-			Motor.B.setSpeed((int) (speed * MOTOR_B_CAL_SPEED));
-			Motor.B.rotate((int) ((-deg) * MOTOR_B_CAL_DEG), true);
-			System.out.println((int) ((-deg) * MOTOR_B_CAL_DEG));
-		}
-
-		try {
-			Thread.sleep(driveTime); // eventuell laenger laufen lassen, wegen
-								     // Zeitabbruch
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			Motor.A.stop();
-			Motor.B.stop();
-			System.out.println("A: " + Motor.A.getTachoCount() + " Grad\nB: " + Motor.B.getTachoCount() + " Grad");
-		}
-	}
-	
 	// ROTATION mittels beider Motoren mit Drehachse in der Mitte der Achse
 	// deg > 0 => Rechtsdrehung
-	public static void rotateSimultaneDegreeBlocking(int degree, int speed) {
+	public static void rotate(int degree, int speed) {
 		double distCirc = Math.abs(degree) * AXLE_RADIUS * Math.PI / 360;
 		int deg = (int) (distCirc * 360) / WHEEL_CIRC; // Schneidet ab, statt zu
 													   // runden
@@ -112,17 +41,16 @@ public class Move {
 			Thread.sleep(driveTime); // eventuell laenger laufen lassen, wegen
 								     // Zeitabbruch
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			Motor.A.stop();
 			Motor.B.stop();
-			System.out.println("A: " + Motor.A.getTachoCount() + " Grad\nB: " + Motor.B.getTachoCount() + " Grad");
+			System.out.println("A: " + (Math.abs(deg * MOTOR_A_CAL_DEG) - Math.abs(Motor.A.getTachoCount())) + " Grad\nB: " + (Math.abs(deg * MOTOR_B_CAL_DEG) - Math.abs(Motor.B.getTachoCount())) + " Grad");		
 		}
 	}
-
+	
 	// BEWEGUNG in gerader Richtung
-	public static void moveMilimetersBlocking(int dist, int speed) {
+	public static void straight(int dist, int speed) {
 		int deg = (dist * 360) / WHEEL_CIRC; // Schneidet ab, statt zu runden
 		int driveTime = (Math.abs(dist) * 360 * 1000) / (speed * WHEEL_CIRC); // leicht
 																	// ungenau
@@ -140,7 +68,7 @@ public class Move {
 		finally {
 			Motor.A.stop();
 			Motor.B.stop();
-			System.out.println("A: " + Motor.A.getTachoCount() + " Grad\nB: " + Motor.B.getTachoCount() + " Grad");
+			System.out.println("A: " + (Math.abs(deg * MOTOR_A_CAL_DEG) - Math.abs(Motor.A.getTachoCount())) + " Grad\nB: " + (Math.abs(deg * MOTOR_B_CAL_DEG) - Math.abs(Motor.B.getTachoCount())) + " Grad");		
 		}
 	}
 

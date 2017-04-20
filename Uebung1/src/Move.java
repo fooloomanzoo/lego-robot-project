@@ -1,5 +1,3 @@
-import lejos.nxt.Button;
-import lejos.nxt.LCD;
 import lejos.nxt.Motor;
 
 public class Move {
@@ -7,7 +5,7 @@ public class Move {
 	final static int WHEEL_CIRC = 174;   // in mm
 	final static int AXLE_RADIUS = 110;  // in mm
 
-	// TODO: Motorleistung in Abhängigkeit zur Geschwindigkeit und Pos. bestimmen
+	// TODO: Motorleistung in Abhaengigkeit zur Geschwindigkeit und Pos. bestimmen
 	// <-- (maxSpeed,...)
 	final static int SPEED_SLOW = 90;    // 0.5 RPS
 	final static int SPEED_MEDIUM = 180; // 1 RPS
@@ -42,13 +40,11 @@ public class Move {
 			Thread.sleep(driveTime); // eventuell laenger laufen lassen, wegen
 								     // Zeitabbruch
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			Motor.A.stop();
 			Motor.B.stop();
-			System.out.println("A: " + Motor.A.getTachoCount() + " Grad\nB: " + Motor.B.getTachoCount() + " Grad");
-		}
+			System.out.println("A: " + (Math.abs(deg * MOTOR_A_CAL_DEG) - Math.abs(Motor.A.getTachoCount())) + " Grad\nB: " + (Math.abs(deg * MOTOR_B_CAL_DEG) - Math.abs(Motor.B.getTachoCount())) + " Grad");		}
 	}
 	
 	// ROTATION mittels beider Motoren mit Drehachse in der Mitte der Achse
@@ -76,12 +72,11 @@ public class Move {
 			Thread.sleep(driveTime); // eventuell laenger laufen lassen, wegen
 								     // Zeitabbruch
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			Motor.A.stop();
 			Motor.B.stop();
-			System.out.println("A: " + Motor.A.getTachoCount() + " Grad\nB: " + Motor.B.getTachoCount() + " Grad");
+			System.out.println("A: " + (Math.abs(deg * MOTOR_A_CAL_DEG) - Math.abs(Motor.A.getTachoCount())) + " Grad\nB: " + (Math.abs(deg * MOTOR_B_CAL_DEG) - Math.abs(Motor.B.getTachoCount())) + " Grad");
 		}
 	}
 
@@ -104,7 +99,7 @@ public class Move {
 		finally {
 			Motor.A.stop();
 			Motor.B.stop();
-			System.out.println("A: " + Motor.A.getTachoCount() + " Grad\nB: " + Motor.B.getTachoCount() + " Grad");
+			System.out.println("A: " + (Math.abs(deg * MOTOR_A_CAL_DEG) - Math.abs(Motor.A.getTachoCount())) + " Grad\nB: " + (Math.abs(deg * MOTOR_B_CAL_DEG) - Math.abs(Motor.B.getTachoCount())) + " Grad");		
 		}
 	}
 
