@@ -7,10 +7,20 @@ public class Move {
 	final static int WHEEL_CIRC = 174;   // in mm
 	final static int AXLE_RADIUS = 110;  // in mm
 
+	// TODO: Motorleistung in Abh√§ngigkeit zur Geschwindigkeit und Pos. bestimmen
+	// <-- (maxSpeed,...)
 	final static int SPEED_SLOW = 90;    // 0.5 RPS
 	final static int SPEED_MEDIUM = 180; // 1 RPS
 	final static int SPEED_FAST = 360;   // 2 RPS
+	
+	final static double MOTOR_A_CAL_DEG = 1.005;
+	final static double MOTOR_B_CAL_DEG = 1.005;
+	final static double MOTOR_A_CAL_SPEED = 1;
+	final static double MOTOR_B_CAL_SPEED = 1.005;
 
+	// Motorkalibrierung erfolgt nur nach Berechnung der Fahrtzeit 
+	// -> TODO: reale Position miteinbeziehen
+	
 	// ROTATION mittels eines Motors mit Drehachse am fixen Rad
 	// deg > 0 => Rechtsdrehung
 	public static void rotateDegreeBlocking(int degree, int speed) {
@@ -21,11 +31,11 @@ public class Move {
 																			  // ungenau
 
 		if (degree > 0) {
-			Motor.B.setSpeed(speed);
-			Motor.B.rotate(deg, true);
+			Motor.B.setSpeed((int) (speed * MOTOR_B_CAL_SPEED));
+			Motor.B.rotate((int) (deg * MOTOR_B_CAL_DEG), true);
 		} else {
-			Motor.A.setSpeed(speed);
-			Motor.A.rotate(deg, true);
+			Motor.A.setSpeed((int) (speed * MOTOR_A_CAL_SPEED));
+			Motor.A.rotate((int) (deg * MOTOR_A_CAL_DEG), true);
 		}
 
 		try {
@@ -37,7 +47,7 @@ public class Move {
 		} finally {
 			Motor.A.stop();
 			Motor.B.stop();
-			System.out.println("Motor A: " + Motor.A.getTachoCount() + "∞\nMotor B: " + Motor.B.getTachoCount() + "∞");
+			System.out.println("A: " + Motor.A.getTachoCount() + " Grad\nB: " + Motor.B.getTachoCount() + " Grad");
 		}
 	}
 	
@@ -51,15 +61,15 @@ public class Move {
 																				// ungenau
 
 		if (degree > 0) {
-			Motor.A.setSpeed(speed);
-			Motor.B.setSpeed(speed);
-			Motor.A.rotate(-deg, true);
-			Motor.B.rotate(deg, true);
+			Motor.A.setSpeed((int) (speed * MOTOR_A_CAL_SPEED));
+			Motor.B.setSpeed((int) (speed * MOTOR_B_CAL_SPEED));
+			Motor.A.rotate((int) (-deg * MOTOR_A_CAL_DEG), true);
+			Motor.B.rotate((int) (deg * MOTOR_B_CAL_DEG), true);
 		} else {
-			Motor.A.setSpeed(speed);
-			Motor.B.setSpeed(speed);
-			Motor.A.rotate(deg, true);
-			Motor.B.rotate(-deg, true);
+			Motor.A.setSpeed((int) (speed * MOTOR_A_CAL_SPEED));
+			Motor.B.setSpeed((int) (speed * MOTOR_B_CAL_SPEED));
+			Motor.A.rotate((int) (deg * MOTOR_A_CAL_DEG), true);
+			Motor.B.rotate((int) (-deg * MOTOR_B_CAL_DEG), true);
 		}
 
 		try {
@@ -71,7 +81,7 @@ public class Move {
 		} finally {
 			Motor.A.stop();
 			Motor.B.stop();
-			System.out.println("Motor A: " + Motor.A.getTachoCount() + "∞\nMotor B: " + Motor.B.getTachoCount() + "∞");
+			System.out.println("A: " + Motor.A.getTachoCount() + " Grad\nB: " + Motor.B.getTachoCount() + " Grad");
 		}
 	}
 
@@ -81,10 +91,10 @@ public class Move {
 		int driveTime = (Math.abs(dist) * 360 * 1000) / (speed * WHEEL_CIRC); // leicht
 																	// ungenau
 
-		Motor.A.setSpeed(speed);
-		Motor.B.setSpeed(speed);
-		Motor.A.rotate(deg, true);
-		Motor.B.rotate(deg, true);
+		Motor.A.setSpeed((int) (speed * MOTOR_A_CAL_SPEED));
+		Motor.B.setSpeed((int) (speed * MOTOR_B_CAL_SPEED));
+		Motor.A.rotate((int) (deg * MOTOR_A_CAL_DEG), true);
+		Motor.B.rotate((int) (deg * MOTOR_B_CAL_DEG), true);
 		try {
 			Thread.sleep(driveTime); // eventuell laenger laufen lassen, wegen
 									 // Zeitabbruch
@@ -94,7 +104,7 @@ public class Move {
 		finally {
 			Motor.A.stop();
 			Motor.B.stop();
-			System.out.println("Motor A: " + Motor.A.getTachoCount() + "∞\nMotor B: " + Motor.B.getTachoCount() + "∞");
+			System.out.println("A: " + Motor.A.getTachoCount() + " Grad\nB: " + Motor.B.getTachoCount() + " Grad");
 		}
 	}
 
