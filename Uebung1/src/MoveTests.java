@@ -14,31 +14,31 @@ public class MoveTests {
 	public static void main(String[] args) {
 
 //		/*******************************************************/
+//		System.out.println("Geradeaus Fahren");
 //		System.out.println("Druecke Startbutton!");
 //		Button.waitForAnyPress();
 //
-//		System.out.println("Geradeaus Fahren");
 //		moveMilimetersBlocking(50, SPEED_FAST); // 5 cm nach vorn
 //		
 //		/*******************************************************/
+//		System.out.println("Drehung um eine Achse");
 //		System.out.println("Druecke Startbutton!");
 //		Button.waitForAnyPress();
-//		
-//		System.out.println("Drehung um eine Achse");
+//
 //		rotateDegreeBlocking(90, SPEED_SLOW);   // 90° nach rechts
 //		
 //		/*******************************************************/
+//		System.out.println("Drehung um Mittelachse");
 //		System.out.println("Druecke Startbutton!");
 //		Button.waitForAnyPress();
 //		
-//		System.out.println("Drehung um Mittelachse");
 //		rotateSimultaneDegreeBlocking(45, SPEED_SLOW); // 90° nach rechts
 		
 		/*******************************************************/
+		System.out.println("Haus vom Nikolaus");
 		System.out.println("Druecke Startbutton!");
 		Button.waitForAnyPress();
-		
-		System.out.println("Nikolaus");
+
 		int speed = SPEED_MEDIUM;
 		// Schritt 1
 		moveMilimetersBlocking(500, speed);
@@ -70,13 +70,13 @@ public class MoveTests {
 	}
 
 	// ROTATION mittels eines Motors mit Drehachse am fixen Rad
-	// deg>0 => rechtsdrehung
+	// deg > 0 => Rechtsdrehung
 	public static void rotateDegreeBlocking(int degree, int speed) {
 		double distCirc = Math.abs(degree) * AXLE_RADIUS * 2 * Math.PI / 360;
 		int deg = (int) (distCirc * 360) / WHEEL_CIRC; // Schneidet ab, statt zu
 													   // runden
 		int driveTime = (int) (distCirc * 360 * 1000) / (speed * WHEEL_CIRC); // leicht
-																				// ungenau
+																			  // ungenau
 
 		if (degree > 0) {
 			Motor.B.setSpeed(speed);
@@ -99,8 +99,8 @@ public class MoveTests {
 		}
 	}
 	
-	// ROTATION mittels beider Motoren mit Drehachse in der Mitte der Räder
-	// deg>0 => rechtsdrehung
+	// ROTATION mittels beider Motoren mit Drehachse in der Mitte der Achse
+	// deg > 0 => Rechtsdrehung
 	public static void rotateSimultaneDegreeBlocking(int degree, int speed) {
 		double distCirc = Math.abs(degree) * AXLE_RADIUS * Math.PI / 360;
 		int deg = (int) (distCirc * 360) / WHEEL_CIRC; // Schneidet ab, statt zu
