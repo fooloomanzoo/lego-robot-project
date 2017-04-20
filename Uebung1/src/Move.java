@@ -2,7 +2,7 @@ import lejos.nxt.Button;
 import lejos.nxt.LCD;
 import lejos.nxt.Motor;
 
-public class MoveTests {
+public class Move {
 
 	final static int WHEEL_CIRC = 174;   // in mm
 	final static int AXLE_RADIUS = 110;  // in mm
@@ -10,64 +10,6 @@ public class MoveTests {
 	final static int SPEED_SLOW = 90;    // 0.5 RPS
 	final static int SPEED_MEDIUM = 180; // 1 RPS
 	final static int SPEED_FAST = 360;   // 2 RPS
-
-	public static void main(String[] args) {
-
-//		/*******************************************************/
-//		System.out.println("Geradeaus Fahren");
-//		System.out.println("Druecke Startbutton!");
-//		Button.waitForAnyPress();
-//
-//		moveMilimetersBlocking(50, SPEED_FAST); // 5 cm nach vorn
-//		
-//		/*******************************************************/
-//		System.out.println("Drehung um eine Achse");
-//		System.out.println("Druecke Startbutton!");
-//		Button.waitForAnyPress();
-//
-//		rotateDegreeBlocking(90, SPEED_SLOW);   // 90° nach rechts
-//		
-//		/*******************************************************/
-//		System.out.println("Drehung um Mittelachse");
-//		System.out.println("Druecke Startbutton!");
-//		Button.waitForAnyPress();
-//		
-//		rotateSimultaneDegreeBlocking(45, SPEED_SLOW); // 90° nach rechts
-		
-		/*******************************************************/
-		System.out.println("Haus vom Nikolaus");
-		System.out.println("Druecke Startbutton!");
-		Button.waitForAnyPress();
-
-		int speed = SPEED_MEDIUM;
-		// Schritt 1
-		moveMilimetersBlocking(500, speed);
-		// Schritt 2
-		rotateDegreeBlocking(135, speed);
-		moveMilimetersBlocking( (int) (500 * Math.sqrt(2)), speed);
-		// Schritt 3
-		rotateDegreeBlocking(-45, speed);
-		moveMilimetersBlocking(500, speed);
-		// Schritt 4
-		rotateDegreeBlocking(-45, speed);
-		moveMilimetersBlocking( (int) (500 / Math.sqrt(2)), speed);
-		// Schritt 5
-		rotateDegreeBlocking(-90, speed);
-		moveMilimetersBlocking( (int) (500 / Math.sqrt(2)), speed);
-		// Schritt 6
-		rotateDegreeBlocking(-135, speed);
-		moveMilimetersBlocking(500, speed);
-		// Schritt 7
-		rotateDegreeBlocking(135, speed);
-		moveMilimetersBlocking( (int) (500 * Math.sqrt(2)), speed);
-		// Schritt 8
-		rotateDegreeBlocking(-135, speed);
-		moveMilimetersBlocking(500, speed);
-		// Schritt 9
-		moveMilimetersBlocking(-500, speed);
-		
-		System.exit(0);
-	}
 
 	// ROTATION mittels eines Motors mit Drehachse am fixen Rad
 	// deg > 0 => Rechtsdrehung
