@@ -8,7 +8,7 @@ public class U01A04 {
 		System.out.println("Druecke Startbutton!");
 		Button.waitForAnyPress();
 
-		Move.moveMilimetersBlocking(-50, Move.SPEED_MEDIUM); // 100 cm nach vorn
+		Move.moveMilimetersBlocking(50, Move.SPEED_MEDIUM); // 5 cm nach vorn
 		
 		/*******************************************************/
 		System.out.println("Drehung um eine Achse");
