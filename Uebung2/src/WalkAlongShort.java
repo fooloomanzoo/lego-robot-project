@@ -62,13 +62,27 @@ public class WalkAlongShort {
 						Motor.A.stop();
 						Motor.B.stop();
 						Motor.B.rotate(-360);
-						while(Motor.B.isMoving()) {};
+						while(Motor.B.isMoving()) {
+							try {
+								Thread.sleep(10);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						};
+						Motor.B.stop();
 					}
 					else if (b3) {
 						Motor.A.stop();
 						Motor.B.stop();
 						Motor.A.rotate(-360);
-						while(Motor.A.isMoving()) {};
+						while(Motor.A.isMoving()) {
+							try {
+								Thread.sleep(10);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						};
+						Motor.A.stop();
 					}
 				}
 			}
