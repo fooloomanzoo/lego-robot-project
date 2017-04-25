@@ -121,5 +121,5 @@ local.properties
 .worksheet
 
 # NXJ Builds
-.nxj
-.nxd
+*.nxj
+*.nxd
