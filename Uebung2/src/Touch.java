@@ -27,19 +27,19 @@ public class Touch {
 			});
 		
 		while(true){
-			Motor.A.setSpeed((int) (MoveTouch.SPEED_MEDIUM * MoveTouch.MOTOR_A_CAL_SPEED));
-			Motor.B.setSpeed((int) (MoveTouch.SPEED_MEDIUM * MoveTouch.MOTOR_B_CAL_SPEED));
+			Motor.A.setSpeed((int) (TouchMove.SPEED_MEDIUM * TouchMove.MOTOR_A_CAL_SPEED));
+			Motor.B.setSpeed((int) (TouchMove.SPEED_MEDIUM * TouchMove.MOTOR_B_CAL_SPEED));
 			
 			Motor.A.forward();
 			Motor.B.forward();
 			
 			if(t2.isPressed()){
 				System.out.println("rechts");
-				MoveTouch.rotateSimultaneDegreeBlocking(-STEP_DEG, MoveTouch.SPEED_SLOW);
+				TouchMove.rotateSimultaneDegreeBlocking(-STEP_DEG, TouchMove.SPEED_SLOW);
 			}
 			if(t3.isPressed()){
 				System.out.println("links");
-				MoveTouch.rotateSimultaneDegreeBlocking(+STEP_DEG, MoveTouch.SPEED_SLOW);
+				TouchMove.rotateSimultaneDegreeBlocking(+STEP_DEG, TouchMove.SPEED_SLOW);
 			}	
 		}	
 	}

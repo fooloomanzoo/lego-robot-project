@@ -6,7 +6,7 @@ import lejos.nxt.SensorPort;
 import lejos.nxt.TouchSensor;
 
 public class WalkAlong {
-	public static void start (boolean inner) {
+	public static void main(String[] args) {
 
 		System.out.println("Kroetenwanderung Innen");
 		System.out.println("Druecke Startbutton!");
@@ -26,16 +26,15 @@ public class WalkAlong {
 			   }
 			});
 		
-		int inside = inner ? 1 : -1;
-		int step_deg = 5;
-		int speed_straight_a = (int) (Move.SPEED_MEDIUM * Move.MOTOR_A_CAL_SPEED);
-		int speed_straight_b = (int) (Move.SPEED_MEDIUM * Move.MOTOR_B_CAL_SPEED);
-		int speed_arc = Move.SPEED_SLOW;
+		int step_deg = 20;
+		int speed_straight_a = (int) (WalkAlongMove.SPEED_MEDIUM * WalkAlongMove.MOTOR_A_CAL_SPEED);
+		int speed_straight_b = (int) (WalkAlongMove.SPEED_MEDIUM * WalkAlongMove.MOTOR_B_CAL_SPEED);
+		int speed_arc = WalkAlongMove.SPEED_SLOW;
 		
 		boolean b2, b3;
 		
 		int lastDir = 0;
-		int timeContactDiff = 2000;
+		int timeContactDiff = 5000;
 		long timeLastContact = 0;
 		
 		while(true) {
@@ -52,64 +51,64 @@ public class WalkAlong {
 			// *********** ALTERNATIVE 1 **************/
 			// wenn Kontakt besteht: rotieren
 			
-//			if (b2 && !b3) {
-//				System.out.println("rechts");
-//				Move.rotate((-1)*step_deg, speed_arc);
-//				lastDir = -1;
-//			} 
-//			else if (!b2 && b3) {
-//				System.out.println("links");
-//				Move.rotate(step_deg, speed_arc);
-//				lastDir = 1;
-//			} 
-//			else if (b2 && b3) {
-//				System.out.println("beide");
-//				Move.rotate((-1)*step_deg, speed_arc);
-//				lastDir = -1;
-//				b2 = t2.isPressed();
-//				b3 = t3.isPressed();
-//				if (b2 && b3) {
-//					Move.rotate(3*step_deg, speed_arc);
-//					lastDir = 1;
-//				}
-//			}
-//			if (b2 || b3) {
-//				timeLastContact = System.currentTimeMillis();
-//			}
-			
-			// *********** ALTERNATIVE 2 **************/
-			// solange noch Kontakt besteht: rotieren
-			while (b2 || b3) {
-				if (b2 && !b3) {
-					System.out.println("rechts");
-					Move.rotate((-1)*step_deg, speed_arc);
-					lastDir = -1;
-				} 
-				else if (!b2 && b3) {
-					System.out.println("links");
-					Move.rotate(step_deg, speed_arc);
-					lastDir = 1;
-				} 
-				else if (b2 && b3) {
-					System.out.println("beide");
-					Move.rotate((-1)*step_deg, speed_arc);
-					lastDir = -1;
-					b2 = t2.isPressed();
-					b3 = t3.isPressed();
-					if (b2 && b3) {
-						Move.rotate(3*step_deg, speed_arc);
-						lastDir = 1;
-					}
-				}
+			if (b2 && !b3) {
+				System.out.println("rechts");
+				WalkAlongMove.rotate((-1)*step_deg, speed_arc);
+				lastDir = -1;
+			} 
+			else if (!b2 && b3) {
+				System.out.println("links");
+				WalkAlongMove.rotate(step_deg, speed_arc);
+				lastDir = 1;
+			} 
+			else if (b2 && b3) {
+				System.out.println("beide");
+				WalkAlongMove.rotate((-1)*step_deg, speed_arc);
+				lastDir = -1;
 				b2 = t2.isPressed();
 				b3 = t3.isPressed();
+				if (b2 && b3) {
+					WalkAlongMove.rotate(3*step_deg, speed_arc);
+					lastDir = 1;
+				}
+			}
+			if (b2 || b3) {
 				timeLastContact = System.currentTimeMillis();
 			}
 			
+			// *********** ALTERNATIVE 2 **************/
+			// solange noch Kontakt besteht: rotieren
+//			while (b2 || b3) {
+//				if (b2 && !b3) {
+//					System.out.println("rechts");
+//					Move.rotate((-1)*step_deg, speed_arc);
+//					lastDir = -1;
+//				} 
+//				else if (!b2 && b3) {
+//					System.out.println("links");
+//					Move.rotate(step_deg, speed_arc);
+//					lastDir = 1;
+//				} 
+//				else if (b2 && b3) {
+//					System.out.println("beide");
+//					Move.rotate((-1)*step_deg, speed_arc);
+//					lastDir = -1;
+//					b2 = t2.isPressed();
+//					b3 = t3.isPressed();
+//					if (b2 && b3) {
+//						Move.rotate(3*step_deg, speed_arc);
+//						lastDir = 1;
+//					}
+//				}
+//				b2 = t2.isPressed();
+//				b3 = t3.isPressed();
+//				timeLastContact = System.currentTimeMillis();
+//			}
+			
 			// Wenn der Kontakt verloren geht, wird in der letzten Drehrichtung entgegen gedreht und gefahren
 			if (lastDir != 0 && (System.currentTimeMillis() - timeLastContact < timeContactDiff)) {
-				Move.rotate((-1)*inside*lastDir*step_deg, speed_arc);
-				Move.straight(Move.WHEEL_CIRC / 2, Move.SPEED_MEDIUM);
+				WalkAlongMove.rotate((-1)*lastDir*step_deg, speed_arc);
+				WalkAlongMove.straight(WalkAlongMove.WHEEL_CIRC / 2, WalkAlongMove.SPEED_MEDIUM);
 			}
 		}	
 
