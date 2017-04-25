@@ -37,16 +37,17 @@ public class WalkAlongMove {
 			Motor.B.rotate((int) (-deg * MOTOR_B_CAL_DEG), true);
 		}
 
-		try {
-			Thread.sleep(driveTime); // eventuell laenger laufen lassen, wegen
-								     // Zeitabbruch
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} finally {
-			Motor.A.stop();
-			Motor.B.stop();
-			System.out.println("A: " + (Math.abs(deg * MOTOR_A_CAL_DEG) - Math.abs(Motor.A.getTachoCount())) + " Grad\nB: " + (Math.abs(deg * MOTOR_B_CAL_DEG) - Math.abs(Motor.B.getTachoCount())) + " Grad");		
+		while(Motor.A.isMoving() || Motor.B.isMoving()) {
+			try {
+				Thread.sleep(10); // eventuell laenger laufen lassen, wegen
+										 // Zeitabbruch
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
+		Motor.A.stop();
+		Motor.B.stop();
+		System.out.println("A: " + (Math.abs(deg * MOTOR_A_CAL_DEG) - Math.abs(Motor.A.getTachoCount())) + " Grad\nB: " + (Math.abs(deg * MOTOR_B_CAL_DEG) - Math.abs(Motor.B.getTachoCount())) + " Grad");		
 	}
 	
 	// BEWEGUNG in gerader Richtung
@@ -59,17 +60,17 @@ public class WalkAlongMove {
 		Motor.B.setSpeed((int) (speed * MOTOR_B_CAL_SPEED));
 		Motor.A.rotate((int) (deg * MOTOR_A_CAL_DEG), true);
 		Motor.B.rotate((int) (deg * MOTOR_B_CAL_DEG), true);
-		try {
-			Thread.sleep(driveTime); // eventuell laenger laufen lassen, wegen
-									 // Zeitabbruch
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		while(Motor.A.isMoving() || Motor.B.isMoving()) {
+			try {
+				Thread.sleep(10); // eventuell laenger laufen lassen, wegen
+										 // Zeitabbruch
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
-		finally {
-			Motor.A.stop();
-			Motor.B.stop();
-			System.out.println("A: " + (Math.abs(deg * MOTOR_A_CAL_DEG) - Math.abs(Motor.A.getTachoCount())) + " Grad\nB: " + (Math.abs(deg * MOTOR_B_CAL_DEG) - Math.abs(Motor.B.getTachoCount())) + " Grad");		
-		}
+		Motor.A.stop();
+		Motor.B.stop();
+		System.out.println("A: " + (Math.abs(deg * MOTOR_A_CAL_DEG) - Math.abs(Motor.A.getTachoCount())) + " Grad\nB: " + (Math.abs(deg * MOTOR_B_CAL_DEG) - Math.abs(Motor.B.getTachoCount())) + " Grad");		
 	}
 
 }
