@@ -2,8 +2,5 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.lejos.nxt.ldt.LEJOS_LIBRARY_CONTAINER/nxt"/>
-	<classpathentry kind="lib" path="D:/Github/lego-robot-project/Uebung3/sim/JGameGrid.jar"/>
-	<classpathentry kind="lib" path="D:/Github/lego-robot-project/Uebung3/sim/RobotSim.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

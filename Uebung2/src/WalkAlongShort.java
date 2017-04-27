@@ -25,14 +25,15 @@ public class WalkAlongShort {
 			   }
 			});
 		
-		int speed_straight = WalkAlongMove.SPEED_FAST;
+		int speed_straight_a = WalkAlongMove.SPEED_FAST;
+		int speed_straight_b = WalkAlongMove.SPEED_FAST;
 		
 		boolean b2, b3;
 		double arc_factor = 0.9;
 		
 		
-		Motor.A.setSpeed(speed_straight);
-		Motor.B.setSpeed(speed_straight);
+		Motor.A.setSpeed(speed_straight_a);
+		Motor.B.setSpeed(speed_straight_b);
 		
 		Motor.A.forward();
 		Motor.B.forward();
@@ -43,19 +44,16 @@ public class WalkAlongShort {
 			b3 = t3.isPressed();
 			
 			if (b2 || b3) {
-				speed_straight = WalkAlongMove.SPEED_MEDIUM;
 				if (b2) {
-					Motor.A.setSpeed((int) (speed_straight * arc_factor));
-					Motor.B.setSpeed((int) (speed_straight ));
+					speed_straight_a = (int) (speed_straight_a * arc_factor);
+					Motor.A.setSpeed(speed_straight_a);
 				}
 				else if (b3) {
-					Motor.A.setSpeed((int) (speed_straight ));
-					Motor.B.setSpeed((int) (speed_straight * arc_factor));
+					speed_straight_b = (int) (speed_straight_b * arc_factor);
+					Motor.B.setSpeed(speed_straight_b);
 				}
 				//ERROR
 				while(true) {
-					Motor.A.forward();
-					Motor.B.forward();
 					b2 = t2.isPressed();
 					b3 = t3.isPressed();
 					if (b2) {
@@ -83,6 +81,11 @@ public class WalkAlongShort {
 							}
 						};
 						Motor.A.stop();
+					} else {
+						Motor.A.setSpeed(speed_straight_a);
+						Motor.B.setSpeed(speed_straight_b);
+						Motor.A.forward();
+						Motor.B.forward();
 					}
 				}
 			}

@@ -22,8 +22,6 @@ public class WalkAlongMove {
 		double distCirc = Math.abs(degree) * AXLE_RADIUS * Math.PI / 360;
 		int deg = (int) (distCirc * 360) / WHEEL_CIRC; // Schneidet ab, statt zu
 													   // runden
-		int driveTime = (int) (distCirc * 360 * 1000) / (speed * WHEEL_CIRC); // leicht
-																				// ungenau
 
 		if (degree > 0) {
 			Motor.A.setSpeed((int) (speed * MOTOR_A_CAL_SPEED));
@@ -53,8 +51,6 @@ public class WalkAlongMove {
 	// BEWEGUNG in gerader Richtung
 	public static void straight(int dist, int speed) {
 		int deg = (dist * 360) / WHEEL_CIRC; // Schneidet ab, statt zu runden
-		int driveTime = (Math.abs(dist) * 360 * 1000) / (speed * WHEEL_CIRC); // leicht
-																	// ungenau
 
 		Motor.A.setSpeed((int) (speed * MOTOR_A_CAL_SPEED));
 		Motor.B.setSpeed((int) (speed * MOTOR_B_CAL_SPEED));
