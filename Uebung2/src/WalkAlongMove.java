@@ -23,7 +23,7 @@ public class WalkAlongMove {
 		int deg = (int) (distCirc * 360) / WHEEL_CIRC; // Schneidet ab, statt zu
 													   // runden
 
-		if (degree > 0) {
+		if (degree < 0) {
 			Motor.A.setSpeed((int) (speed * MOTOR_A_CAL_SPEED));
 			Motor.B.setSpeed((int) (speed * MOTOR_B_CAL_SPEED));
 			Motor.A.rotate((int) (-deg * MOTOR_A_CAL_DEG), true);

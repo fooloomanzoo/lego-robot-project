@@ -29,7 +29,7 @@ public class WalkAlongShort {
 		int speed_straight_b = WalkAlongMove.SPEED_FAST;
 		
 		boolean b2, b3;
-		double arc_factor = 0.9;
+		double arc_factor = 0.95;
 		
 		
 		Motor.A.setSpeed(speed_straight_a);
@@ -45,12 +45,12 @@ public class WalkAlongShort {
 			
 			if (b2 || b3) {
 				if (b2) {
-					speed_straight_a = (int) (speed_straight_a * arc_factor);
-					Motor.A.setSpeed(speed_straight_a);
+					speed_straight_b = (int) (speed_straight_b * arc_factor);
+					Motor.B.setSpeed(speed_straight_a);
 				}
 				else if (b3) {
-					speed_straight_b = (int) (speed_straight_b * arc_factor);
-					Motor.B.setSpeed(speed_straight_b);
+					speed_straight_a = (int) (speed_straight_a * arc_factor);
+					Motor.A.setSpeed(speed_straight_b);
 				}
 				//ERROR
 				while(true) {
@@ -59,7 +59,7 @@ public class WalkAlongShort {
 					if (b2) {
 						Motor.A.stop();
 						Motor.B.stop();
-						Motor.B.rotate(-360);
+						Motor.A.rotate(-45);
 						while(Motor.B.isMoving()) {
 							try {
 								Thread.sleep(10);
@@ -67,12 +67,20 @@ public class WalkAlongShort {
 								e.printStackTrace();
 							}
 						};
+						Motor.A.backward();
+						Motor.B.backward();
+						try {
+							Thread.sleep(100);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						Motor.A.stop();
 						Motor.B.stop();
 					}
 					else if (b3) {
 						Motor.A.stop();
 						Motor.B.stop();
-						Motor.A.rotate(-360);
+						Motor.B.rotate(-45);
 						while(Motor.A.isMoving()) {
 							try {
 								Thread.sleep(10);
@@ -80,7 +88,15 @@ public class WalkAlongShort {
 								e.printStackTrace();
 							}
 						};
+						Motor.A.backward();
+						Motor.B.backward();
+						try {
+							Thread.sleep(100);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
 						Motor.A.stop();
+						Motor.B.stop();
 					} else {
 						Motor.A.setSpeed(speed_straight_a);
 						Motor.B.setSpeed(speed_straight_b);
