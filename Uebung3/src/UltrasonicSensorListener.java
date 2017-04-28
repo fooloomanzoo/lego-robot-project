@@ -9,7 +9,7 @@ public class UltrasonicSensorListener implements SensorPortListener {
 	public void stateChanged(SensorPort aSource, int oldDistance, int newDistance) {
 		if(newDistance > DISTANCE_TO_WALL) {
 			try {
-				Sound.playTone(232, 50);
+				Sound.playTone(432, 50);
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				e.printStackTrace();

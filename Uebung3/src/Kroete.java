@@ -32,10 +32,10 @@ public class Kroete {
 			if (TouchListener.firstContact != -1 && (System.currentTimeMillis()
 					- TouchListener.timeLastContact > TIME_CONTACT_DIFF)) {
 				try {
-					if (TouchListener.lastContact == TouchListener.RIGHT)
-						Move.arcBackward(0.33, 1);
-					else
+					if (TouchListener.firstContact == TouchListener.LEFT)
 						Move.arcBackward(1, 0.33);
+					else
+						Move.arcBackward(0.33, 1);
 					System.out.println("findAttempts " + findAttempts);
 					Thread.sleep((Move.SPEED_STRAIGHT * 1000) / 180);
 					if (TouchListener.firstContact == TouchListener.LEFT) {
