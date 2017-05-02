@@ -1,5 +1,3 @@
-import lejos.nxt.Motor;
-
 public abstract class State {
 	
 	Controller controller = null;
@@ -18,7 +16,6 @@ public abstract class State {
 	public void handleConstant() {};
 	
 	public void exitProgram() {
-		Motor.A.stop();
-		Motor.B.stop();
+		this.controller.exitProgram();
 	};
 }

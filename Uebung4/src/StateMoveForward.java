@@ -1,35 +1,32 @@
 
 public class StateMoveForward extends State {
-
+	public int ForewardSpeed = 360;
+	
 	public StateMoveForward(Controller c) {
 		super(c);
 	}
 
 	@Override
 	void enter() {
-		// TODO Auto-generated method stub
-		
+		this.controller.setMotorSpeed(this.ForewardSpeed);
+		this.controller.moveStraight();
 	}
 
 	@Override
 	void leave() {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	public void handleBrighter() {
-		// TODO Auto-generated method stub
-
+		// Status wechseln --> Neuausrichten
+		this.controller.setState(this.controller.AdjustState);
 	}
 
 	public void handleDarker() {
-		// TODO Auto-generated method stub
-
+		// weiterhin geradeaus fahren
 	}
 
 	public void handleConstant() {
-		// TODO Auto-generated method stub
-
+		// weiterhin geradeaus fahren
 	}
 
 }

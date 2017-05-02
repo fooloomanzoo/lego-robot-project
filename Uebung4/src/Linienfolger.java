@@ -1,5 +1,7 @@
 import lejos.nxt.Button;
 import lejos.nxt.ButtonListener;
+import lejos.nxt.Motor;
+import lejos.nxt.SensorPort;
 
 public class Linienfolger {
 
@@ -9,7 +11,7 @@ public class Linienfolger {
 		System.out.println("Druecke Startbutton!");
 		Button.waitForAnyPress();
 
-		Controller c = new Controller();
+		Controller c = new Controller(SensorPort.S4, Motor.A, Motor.B);
 		
 		// Wenn Escape gedrueckt wird, endet das Programm
 		Button.ESCAPE.addButtonListener(new ButtonListener() {

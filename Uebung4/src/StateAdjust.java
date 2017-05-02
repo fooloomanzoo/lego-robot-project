@@ -1,35 +1,39 @@
 
 public class StateAdjust extends State {
-
+	private boolean RotationDirection = true; // true --> im Uhrzeigersinn, false --> gegen den Uhrzeigersinn
+	private int RotationSpeed = 360;
+	
 	public StateAdjust(Controller c) {
 		super(c);
 	}
 
 	@Override
 	void enter() {
-		// TODO Auto-generated method stub
-		
+		this.controller.setMotorSpeed(this.RotationSpeed);
+		if (this.RotationDirection) {
+			this.controller.rotateRight();
+		} else {
+			this.controller.rotateLeft();
+		}
 	}
 
 	@Override
 	void leave() {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	public void handleBrighter() {
-		// TODO Auto-generated method stub
-
+		// Rotationsrichtung aendern
+		this.RotationDirection = !this.RotationDirection;
+		this.enter();
 	}
 
 	public void handleDarker() {
-		// TODO Auto-generated method stub
-
+		// Weiterhin drehen
 	}
 
 	public void handleConstant() {
-		// TODO Auto-generated method stub
-
+		// Status wechseln --> Geradeaus fahren
+		this.controller.setState(this.controller.MoveForewardState);
 	}
 
 
