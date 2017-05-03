@@ -1,4 +1,5 @@
 import lejos.nxt.Button;
+import lejos.nxt.Motor;
 
 public class U01A04 {
 
@@ -13,17 +14,22 @@ public class U01A04 {
 		/*******************************************************/
 		System.out.println("Drehung um eine Achse");
 		System.out.println("Druecke Startbutton!");
-		//Button.waitForAnyPress();
+		Button.waitForAnyPress();
 
-		//Move.rotateDegreeBlocking(90, Move.SPEED_SLOW);   // 90 Grad nach rechts
+		Move.rotateDegreeBlocking(90, Move.SPEED_SLOW);   // 90 Grad nach rechts
+
+		System.out.println("Tacho links: " + Motor.A.getTachoCount() + "\nTacho rechts: " + Motor.B.getTachoCount());
 		
 		/*******************************************************/
 		System.out.println("Drehung um Mittelachse");
 		System.out.println("Druecke Startbutton!");
-		//Button.waitForAnyPress();
+		Button.waitForAnyPress();
 		
-		//Move.rotateSimultaneDegreeBlocking(45, Move.SPEED_SLOW); // 90 Grad nach rechts
-		
+		Move.rotateSimultaneDegreeBlocking(-45, Move.SPEED_SLOW); // 90 Grad nach rechts
+
+		System.out.println("Tacho links: " + Motor.A.getTachoCount() + "\nTacho rechts: " + Motor.B.getTachoCount());
+
+		Button.waitForAnyPress();
 		System.exit(0);
 	}
 

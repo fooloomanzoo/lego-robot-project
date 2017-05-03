@@ -1,6 +1,6 @@
 
 public class StateMoveForward extends State {
-	public int ForewardSpeed = 360;
+	public int ForewardSpeed = 180;
 	
 	public StateMoveForward(Controller c) {
 		super(c);
@@ -8,17 +8,23 @@ public class StateMoveForward extends State {
 
 	@Override
 	void enter() {
+		System.out.println("StateMoveForeward");
 		this.controller.setMotorSpeed(this.ForewardSpeed);
 		this.controller.moveStraight();
 	}
 
 	@Override
 	void leave() {
+		this.controller.resetTacho();
 	}
 	
 	public void handleBrighter() {
 		// Status wechseln --> Neuausrichten
-		this.controller.setState(this.controller.AdjustState);
+		if (this.controller.motorLeft.getTachoCount() > this.controller.motorRight.getTachoCount()) {
+			this.controller.setState(this.controller.RotateRightState);
+		} else {
+			this.controller.setState(this.controller.RotateLeftState);
+		}
 	}
 
 	public void handleDarker() {

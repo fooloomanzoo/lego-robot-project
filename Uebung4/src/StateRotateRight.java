@@ -1,21 +1,18 @@
 
-public class StateAdjust extends State {
-	private boolean RotationDirection = true; // true --> im Uhrzeigersinn, false --> gegen den Uhrzeigersinn
+public class StateRotateRight extends State {
 	private int RotationSpeed = 90;
 	
-	public StateAdjust(Controller c) {
+	public StateRotateRight(Controller c) {
 		super(c);
 	}
 
 	@Override
 	void enter() {
-		this.RotationDirection = !this.RotationDirection;
+		this.controller.stop();
 		this.controller.setMotorSpeed(this.RotationSpeed);
-		if (this.RotationDirection) {
-			this.controller.rotateRight();
-		} else {
-			this.controller.rotateLeft();
-		}
+		System.out.println("StateRotateRight");
+//		this.controller.resetTacho();
+		this.controller.rotateRight();
 	}
 
 	@Override
@@ -24,7 +21,7 @@ public class StateAdjust extends State {
 	}
 	
 	public void handleBrighter() {
-		this.enter();
+		this.controller.setState(this.controller.RotateLeftState);
 	}
 
 	public void handleDarker() {
@@ -34,7 +31,6 @@ public class StateAdjust extends State {
 
 	public void handleConstant() {
 		// Weiterhin drehen
+//		this.controller.setState(this.controller.MoveForewardState);
 	}
-
-
 }

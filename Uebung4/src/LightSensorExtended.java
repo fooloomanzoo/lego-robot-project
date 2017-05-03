@@ -15,6 +15,12 @@ public class LightSensorExtended extends LightSensor {
 		super(port, true);
 		this.port = port;
 		this.iPortId = port.getType();
+		//verzögerung der Lampe um ersten Messfehler zu eliminieren
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public int getPortId() {
@@ -28,7 +34,7 @@ public class LightSensorExtended extends LightSensor {
 	// Threads fuer Listeners
 	protected static class BrightnessThread extends Thread {
 		private static LightSensorExtended sensor = null;
-		private static int update = 10; // Zeit, zwischen Updates
+		private static int update = 1; // Zeit, zwischen Updates
 		static BrightnessThread singleton = null;
 
 		static synchronized BrightnessThread get() {

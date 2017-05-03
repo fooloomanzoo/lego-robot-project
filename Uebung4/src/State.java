@@ -16,6 +16,6 @@ public abstract class State {
 	public void handleConstant() {};
 	
 	public void exitProgram() {
-		this.controller.exitProgram();
+		this.controller.stop();
 	};
 }
