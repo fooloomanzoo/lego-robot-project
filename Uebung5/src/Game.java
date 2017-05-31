@@ -1,18 +1,10 @@
-import java.util.ArrayList;
-
-import lejos.util.TextMenu;
-
 public class Game {
 
 	public Display display;
-	public Connection bluetooth;
 	public String mode;
 	
 	public Game() {
 		display = new Display();
-		bluetooth = new Connection(this);
-		display.redraw();
-		bluetooth.connect();
 	}
 	
 	public void start(String mode) {
@@ -28,22 +20,21 @@ public class Game {
 		switch (winner) {
 		case 'x':
 			if (this.mode.equals("master")) {
-				System.out.println("You won");
+				this.display.redraw("You won");
 			} else {
-				System.out.println("You lost");
+				this.display.redraw("You lost");
 			}
 			end();
 			break;
 		case 'o':
 			if (this.mode.equals("slave")) {
-				System.out.println("You won");
+				this.display.redraw("You won");
 			} else {
-				System.out.println("You lost");
+				this.display.redraw("You lost");
 			}
 			end();
 			break;
 		default:
-			System.out.println("Next round");
 			break;
 		}
 		
